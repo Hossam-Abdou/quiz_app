@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/navigate.dart';
 import '../components/questions.dart';
 import 'levels_screen.dart';
 class ResultScreen extends StatelessWidget {
@@ -76,6 +77,7 @@ class ResultScreen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold,
                           fontSize: 23,
                           color: Colors.white),),),
+                    SizedBox(height: 15,),
                     getStarRating(),
                 ],),
             ),
@@ -106,6 +108,3 @@ class ResultScreen extends StatelessWidget {
   }
 }
 
-void navigateTo(BuildContext context, Widget destination) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => destination));
-}
