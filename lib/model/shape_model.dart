@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 class Mycl extends CustomClipper<Path>
 {
   @override
-  Path getClip(Size size) {
+  Path getClip(Size size)
+  {
     Path path0 = Path();
     path0.moveTo(size.width*0.3350000,size.height*0.6385714);
     path0.lineTo(size.width*0.6633333,size.height*0.6371429);

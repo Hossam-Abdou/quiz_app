@@ -5,11 +5,12 @@ import 'levels_screen.dart';
 class ResultScreen extends StatelessWidget {
 
      int count;
-   ResultScreen(this.count);
+   ResultScreen({required this.count});
 
   @override
   Widget build(BuildContext context) {
-    double score= (count / questionsList.length) * 100;
+    double score= (count / questionsList3.length) * 100;
+
      getStarRating() {
        if (score < 50) {
          return Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +52,13 @@ class ResultScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Color(0xff1f1147),
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor:  Color(0xff1f1147),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        elevation: 0,
+        title: Text('Results',style: TextStyle(color: Colors.greenAccent),),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -59,7 +66,7 @@ class ResultScreen extends StatelessWidget {
           children: [
          const  Text('Total correct answers ',style: TextStyle(color: Colors.white,fontSize: 17),),
 
-          Text(' $count out of ${questionsList.length}',style: TextStyle(color: Colors.greenAccent,fontSize: 17),),
+          Text(' $count out of ${questionsList3.length}',style: TextStyle(color: Colors.greenAccent,fontSize: 17),),
           Center(
             child: Container(width: 300,height: 350,
 
@@ -75,7 +82,7 @@ class ResultScreen extends StatelessWidget {
                     backgroundColor: Colors.amber,
                     child: Text('${score.toInt()}',
                       style: TextStyle(fontWeight: FontWeight.bold,
-                          fontSize: 23,
+                          fontSize: 40,
                           color: Colors.white),),),
                     SizedBox(height: 15,),
                     getStarRating(),
