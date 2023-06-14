@@ -8,7 +8,7 @@ class QuestionModel
   QuestionModel({
     this.question,
     this.answer,
-    this.options
+    this.options,
   });
   }
 

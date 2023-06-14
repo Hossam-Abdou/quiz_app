@@ -13,15 +13,20 @@ class ResultScreen extends StatelessWidget {
 
      getStarRating() {
        if (score < 50) {
-         return Row(mainAxisAlignment: MainAxisAlignment.center,
+         return const Column(
            children: [
-           Icon(Icons.star_border,color: Colors.yellowAccent,),
-           Icon(Icons.star_border,color: Colors.yellowAccent,),
-           Icon(Icons.star_border,color: Colors.yellowAccent,),
-         ],);
+              Row(mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+               Icon(Icons.star_border,color: Colors.yellowAccent,),
+               Icon(Icons.star_border,color: Colors.yellowAccent,),
+               Icon(Icons.star_border,color: Colors.yellowAccent,),
+             ],),
+             Text('Failed')
+           ],
+         );
        }
        else if (score < 60) {
-         return Row(mainAxisAlignment: MainAxisAlignment.center,
+         return const Row(mainAxisAlignment: MainAxisAlignment.center,
            children: [
              Icon(Icons.star,color: Colors.yellowAccent,),
              Icon(Icons.star_border,color: Colors.yellowAccent,),
@@ -30,7 +35,7 @@ class ResultScreen extends StatelessWidget {
          );
        }
        else if (score < 80) {
-         return Row(mainAxisAlignment: MainAxisAlignment.center,
+         return const Row(mainAxisAlignment: MainAxisAlignment.center,
            children: [
              Icon(Icons.star,color: Colors.yellowAccent,),
              Icon(Icons.star,color: Colors.yellowAccent,),
@@ -39,7 +44,7 @@ class ResultScreen extends StatelessWidget {
            ],
          );
        }  else {
-         return Row(mainAxisAlignment: MainAxisAlignment.center,
+         return const Row(mainAxisAlignment: MainAxisAlignment.center,
            children: [
              Icon(Icons.star,color: Colors.yellowAccent,),
              Icon(Icons.star,color: Colors.yellowAccent,),
@@ -57,7 +62,7 @@ class ResultScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
-        title: Text('Results',style: TextStyle(color: Colors.greenAccent),),
+        title:const Text('Results',style: TextStyle(color: Colors.greenAccent),),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -66,25 +71,26 @@ class ResultScreen extends StatelessWidget {
           children: [
          const  Text('Total correct answers ',style: TextStyle(color: Colors.white,fontSize: 17),),
 
-          Text(' $count out of ${questionsList3.length}',style: TextStyle(color: Colors.greenAccent,fontSize: 17),),
+          Text('$count out of ${questionsList3.length}',
+            style:const TextStyle(color: Colors.greenAccent,fontSize: 17),),
           Center(
             child: Container(width: 300,height: 350,
-
               decoration: BoxDecoration(
                 color: Color(0xff765bf4),
                 borderRadius: BorderRadius.circular(15)
               ),
               child: Column(mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
-                  const Text('Your final Score is',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.white),),
+                  const Text('Your final Score is',
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.white),),
                   CircleAvatar(
                     radius: 100,
                     backgroundColor: Colors.amber,
                     child: Text('${score.toInt()}',
-                      style: TextStyle(fontWeight: FontWeight.bold,
+                      style: const TextStyle(fontWeight: FontWeight.bold,
                           fontSize: 40,
                           color: Colors.white),),),
-                    SizedBox(height: 15,),
+                   const SizedBox(height: 15,),
                     getStarRating(),
                 ],),
             ),

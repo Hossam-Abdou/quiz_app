@@ -21,22 +21,19 @@ class _QuestionsState extends State<Questions> {
   PageController page=PageController();
   int currentQuestionIndex = 0; // the index of  question
   int? selectedAnswerIndex; // choose the answer
-  int count=0; // counter
-
+  int count=0;
   void getNextQuestion() {
-    setState(() {
-       //         4            /     7 =  5
-      if (currentQuestionIndex < questionsList3.length -1 )
-      {
+    if (currentQuestionIndex < widget.QuestionsList.length - 1) {
+      setState(() {
         currentQuestionIndex++;
-      }
-     else
-      {
-        navigateTo(context,ResultScreen(count: count));
+      });
 
+      if (selectedAnswerIndex == widget.QuestionsList[currentQuestionIndex].answer) {
+        count++;
       }
-    });
-
+    } else {
+      navigateTo(context, ResultScreen(count: count));
+    }
   }
   void selectAnswer(int index) {
     setState(() {
@@ -46,7 +43,10 @@ class _QuestionsState extends State<Questions> {
 
   @override
   Widget build(BuildContext context) {
-
+    // questionsList
+    // questionsList1
+    // questionsList2
+    // questionsList3
     var currentQuestion = widget.QuestionsList[currentQuestionIndex];
     return Scaffold(
 
@@ -67,103 +67,104 @@ class _QuestionsState extends State<Questions> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: PageView.builder(
-          physics:const NeverScrollableScrollPhysics(),
-          controller: page,
-          itemBuilder:(context,index)=> Column(
-            children: [
-              Text("Question ${currentQuestionIndex + 1}/${questionsList3.length}", // 1 / 10
-                style:const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.normal),),
+        child:
+           SingleChildScrollView(
+             child: Column(
+              children: [
+                Text("Question ${currentQuestionIndex + 1}/${questionsList3.length}", // 1 / 10
+                  style:const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.normal),),
 
-              Text('${currentQuestion.question}',
-                style: const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.normal),
-              ),
-              ClipRRect(borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  'https://img.freepik.com/free-vector/curiosity-brain-concept-illustration_114360-10736.jpg',
-                  width: 250,
+                Text('${currentQuestion.question}',
+                  style: const TextStyle(fontSize: 18,color: Colors.white,fontWeight: FontWeight.normal),
                 ),
-              ),
-              for (int i = 0; i < currentQuestion.options!.length; i++) // answers
-              // 0
-              // 1
-              // 2
-              // 3
-                Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: GestureDetector(
-                      onTap: () =>
-                          selectAnswer(i),
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                ClipRRect(borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    'https://img.freepik.com/free-vector/curiosity-brain-concept-illustration_114360-10736.jpg',
+                    width: 250,
+                  ),
+                ),
+                for (int i = 0; i < currentQuestion.options!.length; i++) // answers
+                // 0
+                // 1
+                // 2
+                // 3
+                  Padding(
+                    padding: const EdgeInsets.all(7.0),
+                    child: GestureDetector(
+                        onTap: () => selectAnswer(i),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
 
-                          color: selectedAnswerIndex == i ? Colors.greenAccent : Color(0xff1f1147),),
+                            color: selectedAnswerIndex == i ? Colors.greenAccent : Color(0xff1f1147),),
 
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 17,
-                              backgroundColor:const Color(0xff8b86f6),
-                              child: Text('${i+1}',
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 17,
+                                backgroundColor:const Color(0xff8b86f6),
+                                child: Text('${i+1}',
+                                  style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
+                              ),
+                              Text(' ${currentQuestion.options![i]}',
                                 style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-                            ),
-                            Text(' ${currentQuestion.options![i]}',
-                              style:const TextStyle(fontWeight: FontWeight.bold,color: Colors.white),),
-                          ],
-                        ),)
+                            ],
+                          ),)
+                    ),
                   ),
-                ),
 
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color(0xff6947fe))),
-                    onPressed: ()
-                    {
-                      page.previousPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.bounceIn,
-                      );
-                      setState(() {
-                        currentQuestionIndex--;
-                        count --;
-                      });
-                    } ,
-                    child: const Text('Previous Question'),
-                  ),
-                  ElevatedButton(style: ButtonStyle(backgroundColor: MaterialStateProperty.all(const Color(0xff6947fe))),
-                    onPressed: ()
-                    {
-                      page.nextPage(
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut,
-                      );
-                      setState(() {
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(
+                          const Color(0xff6947fe),
+                      )),
+                      onPressed: ()
+                      {
 
-                        getNextQuestion();
-
-                        if(selectedAnswerIndex == currentQuestion.answer)
-                        {
+                        setState(() {
+                          currentQuestionIndex--;
+                          count --;
+                        });
+                      } ,
+                      child: const Text('Previous Question'),
+                    ),
+                    ElevatedButton(style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          const Color(0xff6947fe),
+                        )),
+                      onPressed: ()
+                      {
+                        if (currentQuestionIndex < questionsList3.length-1) {
                           setState(() {
-                            count++;
+                            currentQuestionIndex++;
                           });
+
+                          if (selectedAnswerIndex == currentQuestion.answer) {
+                            count++;
+                          }
+                        } else {
+                          
+
+                          // increment count for last question
+                          if (selectedAnswerIndex == currentQuestion.answer) {
+                            count++;
+                          }
+
+                          navigateTo(context, ResultScreen(count: count));
                         }
-                      });
-
-                    },
-                    child:const Text('Next Question'),
-                  ),
-                ],
-              ),
-            ],
+                      },
+                      child: Text(currentQuestionIndex==questionsList3.length-1?'Finish':'Next Question'),
+                    ),
+                  ],
+                ),
+              ],
           ),
-          itemCount: questionsList3.length,
+           ),
 
-        ),
       ),
     );
   }
